@@ -1,8 +1,10 @@
 package usecase;
 
 import api.GradeDataBase;
+import com.sun.jdi.PathSearchingVirtualMachine;
 import entity.Grade;
 import entity.Team;
+import java.util.List;
 
 /**
  * GetAverageGradeUseCase class.
@@ -29,9 +31,29 @@ public final class GetAverageGradeUseCase {
         // TODO Task 3a: Complete the logic of calculating the average course grade for
         //              your team members. Hint: the getGrades method might be useful.
 
+        if (team != null && team.getMembers() != null) {
+            List<String> members = List.of(team.getMembers());
+
+            // Iterate over all team members and fetch their grades
+            for (String member : members) {
+                List<Grade> grades = List.of(gradeDataBase.getGrades(member));  // Get all grades for the member
+                if (grades != null && !grades.isEmpty()) {
+                    // Filter grades by the specific course
+                    for (Grade grade : grades) {
+                        if (course.equals(grade.getCourse())) {  // Assuming Grade has a getCourse() method
+                            sum += grade;  // Assuming Grade has a getValue() method for the grade value
+                            count++;
+                        }
+                    }
+                }
+            }
+        }
+
         if (count == 0) {
             return 0;
         }
         return sum / count;
     }
+
+
 }
