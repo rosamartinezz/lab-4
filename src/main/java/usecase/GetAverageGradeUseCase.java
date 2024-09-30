@@ -34,16 +34,12 @@ public final class GetAverageGradeUseCase {
         if (team != null && team.getMembers() != null) {
             List<String> members = List.of(team.getMembers());
 
-            // Iterate over all team members and fetch their grades
             for (String member : members) {
-                List<Grade> grades = List.of(gradeDataBase.getGrades(member));  // Get all grades for the member
+                List<String> grades = List.of(team.getMembers());
                 if (grades != null && !grades.isEmpty()) {
                     // Filter grades by the specific course
-                    for (Grade grade : grades) {
-                        if (course.equals(grade.getCourse())) {  // Assuming Grade has a getCourse() method
-                            sum += grade;  // Assuming Grade has a getValue() method for the grade value
-                            count++;
-                        }
+                    for (String hold : grades) {
+                        if ()
                     }
                 }
             }
