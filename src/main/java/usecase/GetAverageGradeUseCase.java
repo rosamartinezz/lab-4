@@ -1,10 +1,11 @@
 package usecase;
 
 import api.GradeDataBase;
+import api.MongoGradeDataBase;
 import com.sun.jdi.PathSearchingVirtualMachine;
 import entity.Grade;
 import entity.Team;
-import java.util.List;
+import org.json.JSONException;
 
 /**
  * GetAverageGradeUseCase class.
@@ -31,16 +32,13 @@ public final class GetAverageGradeUseCase {
         // TODO Task 3a: Complete the logic of calculating the average course grade for
         //              your team members. Hint: the getGrades method might be useful.
 
-        if (team != null && team.getMembers() != null) {
-            List<String> members = List.of(team.getMembers());
+        for (String username : team.getMembers()){
+            final Grade[] grades = gradeDataBase.getGrades(username);
+            for (Grade grade : grades){
 
-            for (String member : members) {
-                List<String> grades = List.of(team.getMembers());
-                if (grades != null && !grades.isEmpty()) {
-                    // Filter grades by the specific course
-                    for (String hold : grades) {
-                        if ()
-                    }
+                if (grade.getCourse().equals(course)){
+                    sum += grade.getGrade();
+                    count++;
                 }
             }
         }
@@ -50,6 +48,5 @@ public final class GetAverageGradeUseCase {
         }
         return sum / count;
     }
-
 
 }
