@@ -254,11 +254,11 @@ public class MongoGradeDataBase implements GradeDataBase {
                 .addHeader(TOKEN, getAPIToken())
                 .addHeader(CONTENT_TYPE, APPLICATION_JSON)
                 .build();
-        try{
+        try {
             final Response response = client.newCall(request).execute();
             final JSONObject responseBody = new JSONObject(response.body().string());
 
-            if(responseBody.getInt(STATUS_CODE) == SUCCESS_CODE){
+            if (responseBody.getInt(STATUS_CODE) == SUCCESS_CODE) {
                 final JSONObject teamName = responseBody.getJSONObject("team");
                 final JSONArray membersArray = teamName.getJSONArray("members");
                 final String[] members = new String[membersArray.length()];
@@ -271,11 +271,11 @@ public class MongoGradeDataBase implements GradeDataBase {
                         .members(members)
                         .build();
             }
-            else{
+            else {
                 throw new RuntimeException(responseBody.getString(MESSAGE));
             }
         }
-        catch (IOException | JSONException event){
+        catch (IOException | JSONException event) {
             throw new RuntimeException(event);
         }
 
